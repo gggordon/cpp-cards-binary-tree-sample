@@ -23,6 +23,11 @@ public:
 		this->suite = suite;
 	}
 
+	Card(const Card & card) {
+		number = card.number;
+		suite = card.suite;
+	}
+
 	int getNumber() {
 		return number;
 	}

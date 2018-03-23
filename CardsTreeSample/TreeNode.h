@@ -53,6 +53,48 @@ public:
 		cout << "]" << endl;
 	}
 
+	TreeNode* remove(int cardNumber, TreeNode* parent) {
+		if (cardNumber < this->getData().getNumber()) {
+			if (left != NULL) {
+				return left->remove(cardNumber, this);
+			}
+			else {
+				return NULL;
+			}
+		}
+		else if (cardNumber > this->getData().getNumber()) {
+			if (right != NULL) {
+				return right->remove(cardNumber, this);
+			}
+			else {
+				return NULL;
+			}
+		}
+		else {
+			if (left != NULL && right != NULL) {
+				this->data = right->minValue();
+				return right->remove(this->getData().getNumber(), this);
+			}
+			else if (parent->left == this) {
+				parent->left = (left != NULL) ? left : right;
+				return this;
+			}
+			else if (parent->right == NULL) {
+				parent->right = (left != NULL) ? left : right;
+				return this;
+			}
+		}
+	}
+
+	Card minValue() {
+		if (left == NULL) {
+			return data;
+		}
+		else {
+			return left->minValue();
+		}
+	}
+
 	~TreeNode() {}
 };
 

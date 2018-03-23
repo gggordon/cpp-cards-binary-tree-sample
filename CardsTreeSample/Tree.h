@@ -82,6 +82,39 @@ public:
 	void displayPreOrder() {
 		displayPreOrder(root);
 	}
+
+	bool remove(int cardNumber) {
+		if (root == NULL) {
+			return false;
+		}
+		else {
+			if (root->getData().getNumber() == cardNumber) {
+				TreeNode tempSubRoot;
+				tempSubRoot.setLeft(root);
+
+				TreeNode* removedNode = root->remove(cardNumber, &tempSubRoot);
+				root = tempSubRoot.getLeft();
+
+				if (removedNode != NULL) {
+					delete removedNode;
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				TreeNode* removedNode = root->remove(cardNumber, NULL);
+				if (removedNode != NULL) {
+					delete removedNode;
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+	}
 	
 	~Tree() {}
 
